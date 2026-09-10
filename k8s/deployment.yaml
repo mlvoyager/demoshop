@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: shopdemo
-          image: amaloff/shopdemo:IMAGE_TAG
+          image: amaloff/shopdemo:10a4db0
 
           ports:
             - containerPort: 5000
