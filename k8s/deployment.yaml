@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: shopdemo-deployment
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: shopdemo
+
+  template:
+    metadata:
+      labels:
+        app: shopdemo
+
+    spec:
+      containers:
+        - name: shopdemo
+          image: amaloff/shopdemo:IMAGE_TAG
+
+          ports:
+            - containerPort: 5000
+
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 5000
+            initialDelaySeconds: 20
+            periodSeconds: 20
+  
