@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} - ShopDemo{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+    <div class="product-img-placeholder large">{{ product.name[0] }}</div>
+    <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.description }}</p>
+        <p class="price large">{{ "%.2f"|format(product.price) }} €</p>
+        <p>Stock disponible : {{ product.stock }}</p>
+        <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+            <button type="submit" class="btn">Ajouter au panier</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="back-link">&larr; Retour au catalogue</a>
+    </div>
+</div>
+{% endblock %}

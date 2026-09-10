@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Catalogue - ShopDemo{% endblock %}
+
+{% block content %}
+<h1>Notre catalogue</h1>
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-card">
+        <a href="{{ url_for('product_detail', product_id=product.id) }}">
+            <div class="product-img-placeholder">{{ product.name[0] }}</div>
+            <h3>{{ product.name }}</h3>
+        </a>
+        <p class="price">{{ "%.2f"|format(product.price) }} €</p>
+        <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+            <button type="submit" class="btn">Ajouter au panier</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Panier - ShopDemo{% endblock %}
+
+{% block content %}
+<h1>Votre panier</h1>
+
+{% if items %}
+<table class="cart-table">
+    <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Quantite</th>
+            <th>Sous-total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ "%.2f"|format(item.subtotal) }} €</td>
+            <td>
+                <form action="{{ url_for('remove_from_cart', product_id=item.product.id) }}" method="POST">
+                    <button type="submit" class="btn-small">Retirer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p class="total">Total : <strong>{{ "%.2f"|format(total) }} €</strong></p>
+
+<form action="{{ url_for('checkout') }}" method="POST">
+    <button type="submit" class="btn btn-primary">Valider la commande</button>
+</form>
+
+{% else %}
+<p>Votre panier est vide. <a href="{{ url_for('index') }}">Continuer vos achats</a>.</p>
+{% endif %}
+{% endblock %}
